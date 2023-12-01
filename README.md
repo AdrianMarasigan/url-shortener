@@ -5,25 +5,25 @@ Tools: Python, FastAPI, Docker, Amazon Web Services (EC2, S3, DynamoDB), Postman
 
 
 ### Functional Requirements:
-#### Create short URLs: 
+#### 1. Create short URLs: 
 - URL validation will be implemented to ensure that the service isn't being used to distribute malicious links.
 - URL character limits will be implemented based on the typical use case and technical constraints.
-#### Get Original URL given a short URL: 
+#### 2. Get Original URL given a short URL: 
 Users should be able to retrieve the original URL associated with a short URL they have generated or obtained. If the shortened URL link is shared, anyone who clicks the link should be redirected to the original link. 
-#### List all short URLs and original URL pairs: 
+#### 3. List all short URLs and original URL pairs: 
 Authorized users should be able to see a list of all short URLs and their respective URL pairs.
 
 ### Non - Functional Requirements:
-#### Short URL must not have any collisions - 
+#### 1. Short URL must not have any collisions - 
 When adding or creating a short URL, we need to ensure that the short URL must not already exist in the Database. If it does, we need to regenerate the short URL, if no custom short URL is provided.
-#### URL must be secure - 
+#### 2. URL must be secure - 
 The URL shortener must implement robust security measures to protect user data, prevent unauthorized access, and mitigate common web vulnerabilities
 - URL shortener will operate over HTTPS
 - Standard authentication and authorization mechanisms will control who can perform CRUD operations on the URLs.
 - URL shortener will only store necessary user data.
 - Input validation will be used to prevent common security threats.
 - Rate limiting will be implemented to control traffic and maintain a high quality of service.
-#### The APIs accessible to the public must be performant
+#### 3. The APIs accessible to the public must be performant
 The service should provide low-latency responses for URL redirection. The time taken to resolve a short URL to its original long URL should be minimal.
 - Database queries will be optimized for efficient queries for up to 100 users (proper indexing).
 - Caching will be used to allow quicker retrieval of frequently used data.
@@ -40,7 +40,7 @@ Version control will be used to track changes and allow collaboration.
 
 
 ### API
-#### ​POST /shorten_url(url, short_url: optional)
+#### 1. ​POST /shorten_url(url, short_url: optional)
 ##### Description: Allows users to provide a URL to shorten with the option to provide a custom, shortened URL.
 
 ##### Input: Request should include a valid URL. Requests may include an optional custom URL. 
@@ -55,7 +55,7 @@ Version control will be used to track changes and allow collaboration.
 - Unexpected error (catch all) - In the event of an unexpected server error or an issue not covered by the specific error conditions above, the API will provide a generic error response.
 - Unauthorized access - If a user attempts to access this endpoint without proper authentication or authorization, the API will respond with an error indicating unauthorized access.
 
-#### GET /list_urls
+#### 2. GET /list_urls
 ##### Description: Allows authorized users to retrieve a list of all relevant shortened URLs and their respective original URLs. 
 
 ##### Input: When this is called, the system will need to ensure the user is authenticated and authorized to access the information.
@@ -68,7 +68,7 @@ Version control will be used to track changes and allow collaboration.
 - Unauthorized access - If a user attempts to access this endpoint without proper authentication or authorization, the API will respond with an error indicating unauthorized access.
 - Unexpected error (catch all) - In the event of an unexpected server error or an issue not covered by the specific error conditions above, the API will provide a generic error response.
 
-#### GET /redirect(short_url)
+#### 3. GET /redirect(short_url)
 ##### Description: Redirects the user to the appropriate URL based on the shortened URL when a GET redirect request is made.
 
 ##### Input: Request will include a valid short URL. When this is called, the system will need to ensure the user is authenticated and authorized to access the information.
